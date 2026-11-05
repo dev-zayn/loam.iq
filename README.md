@@ -54,8 +54,20 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-## Deploying
+## Deploying to Netlify
 
-The site is plain files, so it deploys anywhere: GitHub Pages (Settings → Pages → deploy from branch, root
-folder), Netlify, Vercel, Cloudflare Pages, or any web host via FTP. No environment variables or build
-commands are needed.
+`netlify.toml` already holds the settings Netlify needs (publish the repo root, no build command, security
+headers, and `/ar` / `/en` short links).
+
+1. Sign in at [app.netlify.com](https://app.netlify.com) and choose **Add new site → Import an existing project**.
+2. Pick **GitHub**, authorise Netlify if asked, and select the `dev-zayn/loam.iq` repository.
+3. Leave the build settings as detected (build command empty, publish directory `.`) and click **Deploy**.
+   The site goes live on a `*.netlify.app` address within a minute, and every push to the chosen branch
+   redeploys it automatically.
+4. To use your own domain: **Domain management → Add a domain**, then point the domain's DNS at Netlify as
+   the dashboard instructs (either Netlify DNS name servers, or an A record to Netlify's load balancer plus a
+   `www` CNAME). Netlify issues the HTTPS certificate automatically once DNS resolves.
+
+If you ever switch hosts, the site still works anywhere that serves static files (GitHub Pages, Vercel,
+Cloudflare Pages, or any web host via FTP). Only the headers and short links in `netlify.toml` are Netlify
+specific.

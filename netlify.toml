@@ -1,0 +1,33 @@
+# Netlify configuration for the Loam Real Estate IQ site.
+# The site is plain static files: no build step, published from the repo root.
+
+[build]
+  publish = "."
+  command = ""
+
+# Security headers for every page.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+# Icons and images change rarely; let browsers keep them for a week.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Short links for social bios: loam.iq/ar opens the site in Arabic.
+[[redirects]]
+  from = "/ar"
+  to = "/?lang=ar"
+  status = 302
+
+[[redirects]]
+  from = "/en"
+  to = "/?lang=en"
+  status = 302
